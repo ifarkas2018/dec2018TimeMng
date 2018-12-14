@@ -1,6 +1,7 @@
+// project : Time Schedule, author : Ingrid Farkas, 2019 
 package com.timemng.sbjsp.dao;
 
-
+// importing the packages
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -24,20 +25,24 @@ public class EmpSchedTaskDAO extends JdbcDaoSupport {
         this.setDataSource(dataSource);
     }
  
+    // getSchedules - retrieving the schedule for the employee on the requested date as a List of the elements of the type EmpSchedTaskInfo
     public List<EmpSchedTaskInfo> getSchedules() {
-    	List<EmpSchedTaskInfo> list=null;
-        // Select ba.Id, ba.Full_Name, ba.Balance From Bank_Account ba
-    	// Select ta.task_id, ta.task_name From task ta
-        String sql = EmpSchedTaskMapper.BASE_SQL;
+    	List<EmpSchedTaskInfo> list=null; // initialising the list
+        
+    	// BASE_SQL is the String that contains the query onto which one the WHERE clause will be added depending on the values the user entered 
+    	// in the form show_sched_form.jsp 
+        String sql = EmpSchedTaskMapper.BASE_SQL; 
         try {
         	Object[] params = new Object[] {};
+        	// EmpSchedTaskMapper is a mapping class that maps 1 column in the query statement to 1 field in the model class ( EmpSchedTaskInfo.java )
         	EmpSchedTaskMapper mapper = new EmpSchedTaskMapper();
+        	// running the query and retrieving the list of the tasks for the employee on the requested date
         	list = this.getJdbcTemplate().query(sql, params, mapper);
         } catch (Exception e) {
         	
         }
         
-        return list;
+        return list; // return the list of the tasks for the employee on the requested date
     }
     
     // method removeEmpSpaces removes the empty spaces in the string inString and returns the string without empty spaces
@@ -51,42 +56,49 @@ public class EmpSchedTaskDAO extends JdbcDaoSupport {
     	return newString;
     }
     
-    // from the date in the format dd/mm/yyyy makes the format yyyy-mm-dd ( which is used by the SQL Server )
+    // converts the date from the format dd/mm/yyyy to the format yyyy-mm-dd ( which is used by the SQL Server )
     public String dateDB(String enteredDate) {
     	String sYear; // the year
     	String sMonth; // the month
     	String sDay; // the day
     	String sDate; // the date in format yyyy-mm-dd
-    	sYear = enteredDate.substring(6);
-    	sMonth = enteredDate.substring(3, 5);
-    	sDay = enteredDate.substring(0, 2);
+    	sYear = enteredDate.substring(6); // retrieving the year from the string
+    	sMonth = enteredDate.substring(3, 5); // retrieving the month
+    	sDay = enteredDate.substring(0, 2); // retrieving the day from  the string
     	sDate = sYear + "-" + sMonth + "-" + sDay;
-    	return sDate;
+    	return sDate; // return the date in the format used by the SQL server
     }
     
     // add to the SQL query the where part - where ( e.emp_id = entered value for emp_id ) and ( e.first_name = entered value for enter_f_name ) 
 	// AND ( e.last_name = entered value for enter_l_name ) AND ( ta.task_date = entered value for the date )
     public void addToQueryStr(String empId, String fName, String lName, String date ) {
-    	// reset_BASE_SQL sets the string to its original value
+    	// resetBASE_SQL sets the string to its original value
     	// if the user ran the Show Schedule before then to the original BASE_SQL got changed so I have to reset it to its original value 
     	EmpSchedTaskMapper.resetBASE_SQL();
     	String sql = EmpSchedTaskMapper.BASE_SQL;
+    	
     	// if the user entered an employee id in the Show Schedule form I am changing the SQL query to return the records where the employee id equals the entered value
     	if (!(empId.equals(null))) {
     		sql += "and ( e.emp_id='" + empId + "') ";
     	}
     	
+    	// if the user entered a first name in the Show Schedule form I am changing the SQL query to return the records where the first name equals the entered value
     	if (!(fName.equals(null))) {
     		sql += "and ( e.first_name='" + fName + "') ";
     	}
     	
+    	// if the user entered a first name in the Show Schedule form I am changing the SQL query to return the records where the first name equals the entered value
     	if (!(lName.equals(null))) {
     		sql += "and ( e.last_name='" + lName + "') ";
     	}
     	
+    	// removeEmpSpaces removes the empty spaces from the date 
     	String noEmpSpaces = removeEmpSpaces(date);
+    	// dateDB coverts the date from the format dd/mm/yyyy to the format yyyy-mm-dd
     	// sDBFormatDate is the date in the format yyyy-mm-dd
     	String sDBFormatDate = dateDB(noEmpSpaces);
+    	
+    	// if the user entered a date for the schedule in the Show Schedule form I am changing the SQL query to return the records where the date equals the entered value
     	if (!(sDBFormatDate.equals(null))) {
     		sql += "and ( ta.task_date='" + sDBFormatDate + "') ";
     	}
