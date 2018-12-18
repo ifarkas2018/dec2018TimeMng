@@ -11,16 +11,16 @@ body {
 }
   
 /* setting the background color of the element */ 
-.w3-theme-m1 { color:#000 !important;background-color:#e9f0f6 !important} /* color:#000 !important; */
+.w3-theme-m1 {color:#000 !important; background-color:#e9f0f6 !important}
 /* when the user hovers the mouse over the element, setting the background color and the color of the text of the element */
 .w3-hover-theme-l4:hover {color:rgb(248, 198, 104) !important; background-color:#e9f0f6 !important}
 /* when the user hovers the mouse over the element, setting the color of the text of the element */
 .w3-hover-text-orange:hover { color: rgb(248, 198, 104) !important }  
 /* setting the color of the text of the element */ 
-.w3-text-theme-m1 { color:#0073d8 } /* !important */
+.w3-text-theme-m1 { color:#0073d8 !important }
 
 /* setting black color of the text */
-.black_text { color: black }
+.black_text { color: black } 
 
 /*
 .button_color { color:#0073d8; background: rgb(155, 145, 145); } */

@@ -17,9 +17,13 @@
 	  	<!-- include the navigation -->
       	<%@ include file="navigation.jsp"%>   
       	<!-- include the content of the web page -->
-      	<%@ include file="show_schedule.jsp"%>
+      	<%@ include file="show_task_form.jsp"%>
       	<br />
       	<!-- include the footer -->
       	<%@ include file="footer.jsp"%>
 	</div> 
 </body> 
+
+
+
+
