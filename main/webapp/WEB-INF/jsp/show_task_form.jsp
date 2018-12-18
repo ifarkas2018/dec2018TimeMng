@@ -1,5 +1,6 @@
+
 <!-- project : Time Schedule, author : Ingrid Farkas, 2019 -->
-<!-- included in show_sched_form.jsp -->
+<!-- included in show_task_info.jsp -->
 <!-- Contact section -->
 	<div class="w3-content">
 	    <div class="w3-row w3-margin">
@@ -24,37 +25,38 @@
 	              	<div class="w3-content w3-text" style="max-width:600px">
 	              		<!-- black_text is the CSS rule which sets the color of the text ( file colors.css ) --> 
 	              		<!--  w3-center centers the text -->
-		                <h4 class="w3-center black_text"><b>Show Schedule</b></h4>
+		                <h4 class="w3-center black_text"><b>Update Task</b></h4>
 		                <!--  after clicking on the button show_sched_results.jsp is called using method post -->
 		                <form action="/show_sched_results" method="post" target="_blank">
 		                  	<div class="w3-section">
-		                    	<label>Employee ID</label>
+		                    	<label>Task Name</label>
 		                    	<!--  ??????????????????????????????  -->
 		                    	<!--  when removing REQUIRED go to MainController, show_schedule, and in method show_schedule remove required=true 
-		                    			for the employee_id -->
-		                    	<input class="w3-input w3-border" type="text" name="employee_id" required=true> <!-- input field for entering the employee_id -->
-		                  	</div>
-		                  	<div class="w3-section">
-		                    	<label>First Name</label>
-		                    	<!--  ??????????????????????????????  -->
-		                    	<!--  when removing REQUIRED go to MainController, show_schedule, and in method show_schedule remove required=true 
-		                    		  for the employee_id -->
-		                    	<input class="w3-input w3-border" type="text" name="first_name" required=true> <!-- input field for entering the first_name -->
-		                  	</div>
-		                  	<div class="w3-section">
-		                    	<label>Last Name</label>
-		                    	<!--  ??????????????????????????????  -->
-		                    	<!--  when removing REQUIRED go to MainController, show_schedule, and in method show_schedule remove required=true
-		                    		   for the last-name -->
-		                    	<input class="w3-input w3-border" type="text" name="last_name" required=true> <!-- input field for entering the last_name -->
+		                    			for the employee_id --> <!-- required=true -->
+		                    	<input class="w3-input w3-border" type="text" name="task_name" value="${task_info.taskName}" > <!-- input field for entering the task name -->
 		                  	</div>
 		                  	<div class="w3-section">
 		                    	<label>Date ( format dd/mm/yyyy ) </label>
 		                    	<!--  ??????????????????????????????  -->
 		                    	<!--  when removing REQUIRED go to MainController, show_schedule, and in method show_schedule remove required=true 
 		                    		  for the date -->
-		                    	<input class="w3-input w3-border" type="text" name="date" required=true>
+		                    	<input class="w3-input w3-border" type="text" name="task_date" value="${task_info.taskDate}" required=true> <!-- input field for entering the task date -->
 		                  	</div>
+		                  	<div class="w3-section">
+		                    	<label>Start Time</label>
+		                    	<!--  ??????????????????????????????  -->
+		                    	<!--  when removing REQUIRED go to MainController, show_schedule, and in method show_schedule remove required=true 
+		                    		  for the employee_id -->
+		                    	<input class="w3-input w3-border" type="text" name="start_time" value="${task_info.taskStartTime}" required=true> <!-- input field for entering the start time -->
+		                  	</div>
+		                  	<div class="w3-section">
+		                    	<label>End Time</label>
+		                    	<!--  ??????????????????????????????  -->
+		                    	<!--  when removing REQUIRED go to MainController, show_schedule, and in method show_schedule remove required=true
+		                    		   for the last-name -->
+		                    	<input class="w3-input w3-border" type="text" name="end_time" value="${task_info.taskEndTime}" required=true> <!-- input field for entering the end time -->
+		                  	</div>
+		                  	
 		                  	<!-- w3-camo-grey is a CSS rule in the colors.css -->
 		                  	<button class="w3-btn w3-camo-grey">Submit</button> 
 		                </form>

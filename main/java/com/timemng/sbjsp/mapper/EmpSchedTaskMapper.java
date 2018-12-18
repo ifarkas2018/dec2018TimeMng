@@ -10,10 +10,14 @@ import org.springframework.jdbc.core.RowMapper;
 // EmpSchedTaskMapper - a mapper class (used for mapping corresponding to 1-1 between 1 column in the result of the query statement and 1 field in 
 // the model class EmpSchedTaskInfo.java )
 public class EmpSchedTaskMapper implements RowMapper<EmpSchedTaskInfo> {
-	// BASE_SQL is a SQL query to which later I added the where clause depending on the data the user entered
+	// BASE_SQL is a SQL query to which later I added the where clause depending on the data the user entered on the List Schedule
 	public static String BASE_SQL // 
 	= "select e.emp_id, s.emp_id, ta.task_id, ta.task_name, ta.task_date, ta.start_time, ta.end_time from employee e, schedule s, task ta"  //
 	+ " where (e.emp_id = s.emp_id ) and (s.sched_id = ta.sched_id) ";
+	
+	// ??????????????????????  should there be at the end task t and not task
+	public static String TASK_SQL //
+	= "select task_id, task_name, task_date, start_time, end_time from task";
 	
 	// resetBASE_SQL sets the string BASE_SQL to its original value
 	public static void resetBASE_SQL() {
