@@ -4,6 +4,7 @@
 
 <!--  include the JSTL Core library -->
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 	<!-- Contact section -->
 	<div class="w3-content">
@@ -33,10 +34,11 @@
 	            <div class="w3-container w3-light-grey w3-padding-32 w3-padding-large" id="show_sched_info"> 
 	              	<div class="w3-content w3-text" style="max-width:600px">
 	              		<!-- black_test CSS rule from the colors.css -->
-	                    <h2 class="w3-center black_text"><b>Schedule</b></h2>   	
+	                    <h2 class="w3-center black_text"><b>Schedule</b></h2> 
+	                      	
 	 					<h6>Employee Name: ${enter_f_name} ${enter_l_name}</h6> <!-- showing the employee name -->
 	 					<h6>Date of the Schedule: ${enter_date}</h6> <!-- showing the date of the schedule -->
-		       
+						<form action="/show_task_info" method="get" target="_blank">
 						<div>
 	      					<!-- creating the table with the tasks -->
 	      					<table class="w3-table w3-bordered w3-centered">
@@ -45,18 +47,30 @@
 	          						<th>Task Name</th>
 								  	<th>Start Time</th>
 								  	<th>End Time</th>
+								  	<th>Action</th>
 						        </tr>
 						        <!-- for each element of the list empSchedTaskInfos, show the name of the task, the start time and the end time of the task -->
 	        					<!-- empSchedTaskInfos is the attribute from the MainController.java, which was added to the model -->
 	        					<c:forEach items="${empSchedTaskInfos}" var="schedinfo"> 
-	        						<tr>
+	        						<tr class="w3--cell-bottom">
 						          		<td>${schedinfo.taskName}</td>	<!-- show the name of the task -->
 						          		<td>${schedinfo.taskStartTime}</td> <!-- show the start time of the task -->
 						          		<td>${schedinfo.taskEndTime}</td> <!-- show the end time of the task -->
+						          		
+						          			<!-- <td><input class="w3-input w3-border" name="employee_id" id="employee_id" value="${schedinfo.taskName}"></td> 
+						          			<td><input class="w3-input w3-border" name="first_name" id="first_name" value=${enter_f_name}></td>
+						          			<td><input class="w3-input w3-border" name="last_name" id="last_name" value="Farkas"></td>
+						          			<td><input class="w3-input w3-border" name="date" id="date" value=${ schedinfo.taskDate }></td> --> 
+						          			<td>
+						          				<spring:url value="/task_update/${schedinfo.taskId}" var="updateURL" />
+     											<a href="${updateURL}">Update</a>
+						          				<!-- <button class="w3-btn w3-tiny w3-padding-small w3-camo-grey">Update</button> -->
+						          			</td> 
 						        	</tr>
 	        					</c:forEach>
 	      					</table>
 	    				</div>
+	    				</form>
 	    			</div>
 				</div>
 			</div>

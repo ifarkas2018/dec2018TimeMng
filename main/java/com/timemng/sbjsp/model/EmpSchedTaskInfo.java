@@ -40,14 +40,27 @@ public class EmpSchedTaskInfo {
         this.taskName = taskName;
     }
     
-    // get the date of the task
+    // get the date of the task ( form : dd/mm/yyyy )
     public String getTaskDate() {
-        return taskDate;
+        return dateForm(taskDate);
     }
  
     // set the date of the task
     public void setTaskDate(String taskDate) {
         this.taskDate = taskDate;
+    }
+    
+ // converts the date from the format yyyy-mm-dd ( which is used by the SQL Server ) to the format dd/mm/yyyy ( show on the form )
+    public String dateForm(String dateDB) {
+    	String sYear; // the year
+    	String sMonth; // the month
+    	String sDay; // the day
+    	String sDate; // the date in format dd/mm/yyyy
+    	sYear = dateDB.substring(0, 4); // retrieving the year from the string
+    	sMonth = dateDB.substring(5, 7); // retrieving the month
+    	sDay = dateDB.substring(8); // retrieving the day from  the string
+    	sDate = sDay + "/" + sMonth + "/" + sYear;
+    	return sDate; // return the date in the format dd/mm/yyyy
     }
     
     // get the start time of the task

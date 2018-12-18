@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import com.timemng.sbjsp.mapper.EmpSchedTaskMapper;
 import com.timemng.sbjsp.model.EmpSchedTaskInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 // import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -43,6 +44,30 @@ public class EmpSchedTaskDAO extends JdbcDaoSupport {
         }
         
         return list; // return the list of the tasks for the employee on the requested date
+    }
+    
+    
+    public EmpSchedTaskInfo findTask(Long id) {
+      
+    	// select task_id, task_name, task_date, start_time, end_time from task
+        String sql = EmpSchedTaskMapper.TASK_SQL + " where task_id = ? ";
+ 
+        Object[] params = new Object[] { id };
+        EmpSchedTaskMapper mapper = new EmpSchedTaskMapper();
+        try {
+            EmpSchedTaskInfo empSchedTask = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+            return empSchedTask;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+    
+    public void updateTask(Long id) {
+    	EmpSchedTaskInfo taskInfo = this.findTask(id);
+    	
+    	// Update to DB
+        String sqlUpdate = "Update task set task_name = ? where task_id = ?";
+        this.getJdbcTemplate().update(sqlUpdate, taskInfo.getTaskName(), taskInfo.getTaskId());
     }
     
     // method removeEmpSpaces removes the empty spaces in the string inString and returns the string without empty spaces
